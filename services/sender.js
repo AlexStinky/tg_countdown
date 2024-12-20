@@ -23,8 +23,7 @@ class Sender extends Queue {
         this.FORBIDDEN_ERRORS = [
             'bot was blocked',
             "bot can't initiate conversation with a user",
-            'user is deactivated',
-            'chat not found'
+            'user is deactivated'
         ];
     }
 
@@ -66,7 +65,7 @@ class Sender extends Queue {
 
             this.counter++;
 
-            if (this.counter % 30 === 0) {
+            if (this.counter % 29 === 0) {
                 await sleep(1000);
             }
         }
@@ -286,6 +285,15 @@ class Sender extends Queue {
                     };
 
                     return this.sendMessage(chat_id, temp);
+                } else if (response.description.includes('chat not found')) {
+                    if (message.message_id) {
+                        await countdownDBService.update({
+                            chat_id,
+                            message_id: message.message_id
+                        }, {
+                            isActive: false
+                        });
+                    }
                 }
             }
 

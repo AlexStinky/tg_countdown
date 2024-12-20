@@ -22,8 +22,6 @@ const check = async () => {
             chat_id: el.chat_id,
             message: messages.countdown('uk', el, el.message_id)
         });
-
-        await sleep(1000);
     }
 
     await countdownDBService.updateAll({
@@ -32,7 +30,7 @@ const check = async () => {
         }
     }, { isActive: false });
 
-    setTimeout(check, 1000);
+    setTimeout(check, 2000);
 }
 
 module.exports = {
