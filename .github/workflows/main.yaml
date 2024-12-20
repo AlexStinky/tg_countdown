@@ -1,0 +1,35 @@
+name: Deploy
+on: 
+  push:
+    branches: [ "main" ]
+jobs:
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    env:
+      HOST: 194.32.79.228
+      USERNAME: root
+      DIR_NAME: tg_countdown
+      SERVICE_NAME: tg_countdown
+      GITHUB_PATH: git@github.com:AlexStinky/tg_countdown
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    - name: Deploy using ssh
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ env.HOST }}
+        username: ${{ env.USERNAME }}
+        key: ${{ secrets.KEY }}
+        port: 22
+        script: |
+          cd /opt/${{ env.DIR_NAME }}
+          rm -r node_modules
+          rm -r package-lock.json
+          git pull origin main
+          npm install
+
+          systemctl daemon-reload
+          systemctl enable ${{ env.SERVICE_NAME }}
+          systemctl restart ${{ env.SERVICE_NAME }}

@@ -1,0 +1,21 @@
+start_message: 'Вітаю!'
+
+enterText_message: 'Введіть текст:'
+enterTime_message: 'Введіть час:'
+send_message: 'Відправити у чат?'
+
+countdown_message: '${text}
+
+${hours}:${minutes}:${seconds}'
+
+userInfo_message: '${user}
+
+Адмін: ${isAdmin}'
+
+send_button: 'Відправити'
+
+cancel_button: 'Скасувати'
+
+user_url: '<a href="tg://user?id=${id}">${username}</a>'
+
+bot_url: 'https://t.me/${username}?start=${query}'

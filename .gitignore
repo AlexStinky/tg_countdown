@@ -1,0 +1,13 @@
+/node_modules
+/files
+
+package-lock.json
+
+.env
+
+authorized_keys
+id_*
+
+pass.txt
+
+config.json
