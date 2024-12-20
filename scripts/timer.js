@@ -18,10 +18,12 @@ const check = async () => {
     for (let i = 0; i < data.length; i++) {
         const el = data[i];
 
-        countdownSender.enqueue({
-            chat_id: el.chat_id,
-            message: messages.countdown('uk', el, el.message_id)
-        });
+        await countdownSender.sendMessage(
+            el.chat_id,
+            messages.countdown('uk', el, el.message_id)
+        );
+
+        await sleep(2000);
     }
 
     await countdownDBService.updateAll({
@@ -29,8 +31,6 @@ const check = async () => {
             $lt: now
         }
     }, { isActive: false });
-
-    await sleep(1100);
 
     return check();
 }
