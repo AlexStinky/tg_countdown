@@ -294,6 +294,8 @@ class Sender extends Queue {
                             isActive: false
                         });
                     }
+                } else if (response.description.includes('Too Many Requests: retry after')) {
+                    await sleep(response.parameters.retry_after * 1000);
                 }
             }
 
