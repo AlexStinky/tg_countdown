@@ -1,6 +1,6 @@
 const messages = require('./messages');
 
-const {countdownSender } = require('../services/sender');
+const { countdownSender } = require('../services/sender');
 const { countdownDBService } = require('../services/db');
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -30,7 +30,9 @@ const check = async () => {
         }
     }, { isActive: false });
 
-    setTimeout(check, 2000);
+    await sleep(1100);
+
+    return check();
 }
 
 module.exports = {
