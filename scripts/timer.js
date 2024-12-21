@@ -18,12 +18,10 @@ const check = async () => {
     for (let i = 0; i < data.length; i++) {
         const el = data[i];
 
-        await countdownSender.sendMessage(
-            el.chat_id,
-            messages.countdown('uk', el, el.message_id)
-        );
-
-        await sleep(1000);
+        countdownSender.enqueue({
+            chat_id: el.chat_id,
+            message: messages.countdown('uk', el, el.message_id)
+        });
     }
 
     await countdownDBService.updateAll({
@@ -32,7 +30,7 @@ const check = async () => {
         }
     }, { isActive: false });
 
-    return check();
+    setTimeout(check, 30 * 1000);
 }
 
 module.exports = {

@@ -53,8 +53,10 @@ const add = (lang, step) => {
     let inline_keyboard = [];
 
     if (step === 1) {
-        message.text = i18n.t(lang, 'enterText_message');
+        message.text = i18n.t(lang, 'enterStartText_message');
     } else if (step === 2) {
+        message.text = i18n.t(lang, 'enterEndText_message');
+    } else if (step === 3) {
         message.text = i18n.t(lang, 'enterTime_message');
     } else {
         message.text = i18n.t(lang, 'send_message');
@@ -104,10 +106,10 @@ const countdown = (lang, data, message_id = null) => {
         type: (message_id) ? 'edit_text' : 'text',
         message_id,
         text: i18n.t(lang, 'countdown_message', {
-            text: data.text,
+            text_start: data.text_start,
+            text_end: data.text_end,
             hours,
-            minutes,
-            seconds
+            minutes
         }),
         extra: {}
     };

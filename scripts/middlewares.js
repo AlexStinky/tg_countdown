@@ -90,7 +90,8 @@ const commands = async (ctx, next) => {
                 if (match[0] === '/add') {
                     ctx.session.data = {
                         step: 1,
-                        text: '',
+                        text_start: '',
+                        text_end: '',
                         date: null
                     };
     

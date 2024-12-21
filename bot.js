@@ -72,10 +72,15 @@ bot.on('text', async (ctx) => {
     let message = null;
 
     if (data && text !== '/add') {
-        if (data.step === 1) {
+        if (data.step <= 2) {
+            if (data.step === 1) {
+                data.text_start = text;
+            } else {
+                data.text_end = text;
+            }
+
             data.step++;
-            data.text = ctx.message.text;
-        } else if (data.step === 2 && TIME_REG.test(text)) {
+        } else if (data.step === 3 && TIME_REG.test(text)) {
             const temp = text.split(':');
             const hours = Number(temp[0]);
             const minutes = Number(temp[1]);

@@ -1,12 +1,11 @@
 start_message: 'Вітаю!'
 
-enterText_message: 'Введіть текст:'
+enterStartText_message: 'Введіть початковий текст:'
+enterEndText_message: 'Введіть кінцевий текст:'
 enterTime_message: 'Введіть час:'
 send_message: 'Відправити у чат?'
 
-countdown_message: '${text}
-
-${hours}:${minutes}:${seconds}'
+countdown_message: '${text_start} ${hours} HOURS ${minutes} MINUTES ${text_end}'
 
 userInfo_message: '${user}
 

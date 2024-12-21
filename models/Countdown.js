@@ -18,7 +18,10 @@ const CountdownSchema = new Schema({
     date: {
         type: Date
     },
-    text: {
+    text_start: {
+        type: String
+    },
+    text_end: {
         type: String
     }
 }, { versionKey: false });
