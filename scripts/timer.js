@@ -23,7 +23,7 @@ const check = async () => {
             messages.countdown('uk', el, el.message_id)
         );
 
-        await sleep(2000);
+        await sleep(1000);
     }
 
     await countdownDBService.updateAll({

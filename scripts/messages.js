@@ -80,18 +80,25 @@ const add = (lang, step) => {
 };
 
 const countdown = (lang, data, message_id = null) => {
-    const now = moment();
+    let hours = 0,
+        minutes = 0,
+        seconds = 0;
 
-    const difference = moment(data.date).diff(now);
+    try {
+        const now = moment();
 
-    const duration = moment.duration(difference);
-    const days = duration.days();
-    let hours = duration.hours();
-        hours = (hours < 10) ? `0${hours}` : hours;
-    let minutes = duration.minutes();
-        minutes = (minutes < 10) ? `0${minutes}` : minutes;
-    let seconds = duration.seconds();
-        seconds = (seconds < 10) ? `0${seconds}` : seconds;
+        const difference = moment(data.date).diff(now);
+        const duration = moment.duration(difference);
+
+        hours = duration.hours();
+            hours = (hours < 10) ? `0${hours}` : hours;
+        minutes = duration.minutes();
+            minutes = (minutes < 10) ? `0${minutes}` : minutes;
+        seconds = duration.seconds();
+            seconds = (seconds < 10) ? `0${seconds}` : seconds;
+    } catch (error) {
+        console.log('[countdown]', error);
+    }
 
     const message = {
         type: (message_id) ? 'edit_text' : 'text',
