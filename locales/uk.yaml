@@ -7,11 +7,18 @@ send_message: 'Відправити у чат?'
 
 countdown_message: '${text_start} ${hours} HOURS ${minutes} MINUTES ${text_end}'
 
+addChat_message: 'Щоб додати чат натисніть на кнопку нижче:'
+
+chatIsAdded_message: 'Чат додано, не забудьте зробити бота адміном в ньому.'
+chatIsRemoved_message: 'Чат видалено!'
+
 userInfo_message: '${user}
 
 Адмін: ${isAdmin}'
 
 send_button: 'Відправити'
+
+selectChat_button: 'Оберіть чат'
 
 cancel_button: 'Скасувати'
 

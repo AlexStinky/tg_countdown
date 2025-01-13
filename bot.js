@@ -59,6 +59,7 @@ bot.use(rateLimit(limitConfig));
 bot.use(middlewares.start);
 bot.use(middlewares.commands);
 bot.use(middlewares.cb);
+bot.use(middlewares.shared);
 
 bot.catch(err => console.error(err));
 

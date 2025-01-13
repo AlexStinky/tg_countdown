@@ -117,6 +117,41 @@ const countdown = (lang, data, message_id = null) => {
     return message;
 };
 
+const addChat = (lang) => {
+    const message = {
+        type: 'text',
+        text: i18n.t(lang, 'addChat_message'),
+        extra: {
+            reply_markup: {
+                is_persistent: true,
+                resize_keyboard: true,
+                keyboard: [
+                    [{
+                        text: i18n.t(lang, 'selectChat_button'),
+                        request_chat: {
+                            request_id: 1,
+                            chat_is_channel: false,
+                            /*user_administrator_rights: {
+                                can_manage_chat: true,
+                                can_delete_messages: true
+                            },
+                            bot_administrator_rights: {
+                                can_manage_chat: true,
+                                can_delete_messages: true
+                            }*/
+                        }
+                    }],
+                    [{
+                        text: i18n.t(lang, 'cancel_button')
+                    }]
+                ]
+            }
+        }
+    };
+
+    return message;
+};
+
 const userInfo = (lang, user, message_id = null) => {
     const message = {
         type: (message_id) ? 'edit_text' : 'text',
@@ -137,5 +172,6 @@ const userInfo = (lang, user, message_id = null) => {
 module.exports = {
     add,
     countdown,
+    addChat,
     userInfo
 }
