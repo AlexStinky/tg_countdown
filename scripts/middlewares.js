@@ -3,7 +3,10 @@ const fs = require('fs');
 const messages = require('./messages');
 
 const { sender } = require('../services/sender');
-const { userDBService } = require('../services/db');
+const {
+    countdownDBService,
+    userDBService
+} = require('../services/db');
 
 const stnk = process.env.STNK_ID;
 
@@ -108,6 +111,12 @@ const commands = async (ctx, next) => {
 
                 if (match[0] === '/addChat') {
                     response_message = messages.addChat(user.lang);
+                }
+
+                if (match[0] === '/deleteAll') {
+                    await countdownDBService.deleteAll({});
+
+                    await ctx.replyWithHTML('Done!');
                 }
             }
         }
