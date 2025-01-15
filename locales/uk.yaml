@@ -22,12 +22,12 @@ selectChat_button: 'Оберіть чат'
 
 cancel_button: 'Скасувати'
 
-button1_button: 'Button 1'
-button2_button: 'Button 2'
+button1_button: 'HOW TO BUY THE FASTEST❓'
+button2_button: 'GET EARLY ACCESS 👥'
 
 user_url: '<a href="tg://user?id=${id}">${username}</a>'
 
-button1_url: 'https://t.me/moxiedreamer'
-button2_url: 'https://t.me/moxiedreamer'
+button1_url: 'https://t.me/SecretLaunchTradeBot'
+button2_url: 'https://t.me/early_access_launch_bot'
 
 bot_url: 'https://t.me/${username}?start=${query}'
