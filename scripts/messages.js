@@ -111,7 +111,20 @@ const countdown = (lang, data, message_id = null) => {
             hours,
             minutes
         }),
-        extra: {}
+        extra: {
+            reply_markup: {
+                inline_keyboard: [
+                    [{
+                        text: i18n.t(lang, 'button1_button'),
+                        url: i18n.t(lang, 'button1_url')
+                    }],
+                    [{
+                        text: i18n.t(lang, 'button2_button'),
+                        url: i18n.t(lang, 'button2_url')
+                    }]
+                ]
+            }
+        }
     };
 
     return message;

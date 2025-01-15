@@ -43,6 +43,7 @@ class Sender extends Queue {
                 action,
                 chat_id,
                 message,
+                message_id,
                 message_thread_id,
                 data
             } = this.storage[this.count - 1];
@@ -51,14 +52,26 @@ class Sender extends Queue {
                 message.extra.message_thread_id = message_thread_id;
             }
 
+            if (message_id) {
+                await this.deleteMessage(chat_id, message_id);
+            }
+
             const res = await this.sendMessage(chat_id, message);
 
-            if (action === 'countdown') {
-                await countdownDBService.create({
-                    chat_id,
-                    message_id: res.message_id,
-                    ...data
-                });
+            if (res) {
+                if (action === 'countdown') {
+                    if (data._id) {
+                        await countdownDBService.update({ _id: data._id }, {
+                            message_id: res.message_id
+                        });
+                    } else {
+                        await countdownDBService.create({
+                            chat_id,
+                            message_id: res.message_id,
+                            ...data
+                        });
+                    }
+                }
             }
 
             this.dequeue();

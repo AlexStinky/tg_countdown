@@ -19,8 +19,13 @@ const check = async () => {
         const el = data[i];
 
         countdownSender.enqueue({
+            action: 'countdown',
             chat_id: el.chat_id,
-            message: messages.countdown('uk', el, el.message_id)
+            message_id: el.message_id,
+            message: messages.countdown('uk', el),
+            data: {
+                _id: el._id
+            }
         });
     }
 
