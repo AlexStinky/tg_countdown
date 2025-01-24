@@ -23,11 +23,11 @@ selectChat_button: 'Оберіть чат'
 cancel_button: 'Скасувати'
 
 button1_button: 'HOW TO BUY THE FASTEST❓'
-button2_button: 'CHANNEL 👥'
+button2_button: 'GET EARLY ACCESS👥'
 
 user_url: '<a href="tg://user?id=${id}">${username}</a>'
 
 button1_url: 'https://t.me/SecretLaunchTradeBot'
-button2_url: 'https://t.me/MemeSecretLaunch'
+button2_url: 'https://t.me/launch_early_access_bot'
 
 bot_url: 'https://t.me/${username}?start=${query}'
