@@ -121,6 +121,10 @@ const countdown = (lang, data, message_id = null) => {
                     [{
                         text: i18n.t(lang, 'button2_button'),
                         url: i18n.t(lang, 'button2_url')
+                    }],
+                    [{
+                        text: i18n.t(lang, 'button3_button'),
+                        url: i18n.t(lang, 'button3_url')
                     }]
                 ]
             }
