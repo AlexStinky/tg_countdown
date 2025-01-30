@@ -24,10 +24,12 @@ cancel_button: 'Скасувати'
 
 button1_button: 'HOW TO BUY THE FASTEST❓'
 button2_button: 'CHANNEL👥'
+button3_button: 'TWITTER🌟'
 
 user_url: '<a href="tg://user?id=${id}">${username}</a>'
 
 button1_url: 'https://t.me/SecretLaunchTradeBot'
 button2_url: 'https://t.me/MemeSecretLaunch'
+button3_url: 'http://x.com/launch_secret'
 
 bot_url: 'https://t.me/${username}?start=${query}'
