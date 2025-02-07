@@ -23,7 +23,7 @@ selectChat_button: 'Оберіть чат'
 cancel_button: 'Скасувати'
 
 button1_button: 'HOW TO BUY THE FASTEST❓'
-button2_button: 'CHANNEL👥'
+button2_button: 'CHANNEL'
 button3_button: 'PUMP.FUN'
 
 user_url: '<a href="tg://user?id=${id}">${username}</a>'
