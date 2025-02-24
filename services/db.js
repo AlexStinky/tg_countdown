@@ -1,15 +1,5 @@
-const mongoose = require('mongoose');
-
 const { User } = require('../models/User');
 const { Countdown } = require('../models/Countdown');
-
-const DB_CONN = process.env.DB_CONN;
-
-mongoose.set('strictQuery', false);
-mongoose.connect(DB_CONN, {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-}).catch(console.log);
 
 class DBMethods {
     constructor(model) {

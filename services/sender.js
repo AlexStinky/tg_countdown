@@ -7,11 +7,14 @@ const {
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-class Sender extends Queue {
+class Sender {
     constructor() {
-        super();
+        this.bot = null;
 
-        this.bot = {};
+        this.queue = new Queue();
+        this.enqueue = (data) => this.queue.enqueue(data);
+        this.dequeue = () => this.queue.dequeue();
+
         this.delay = 100;
         this.counter = 0;
 
@@ -32,13 +35,22 @@ class Sender extends Queue {
     }
 
     async create(bot) {
+        if (!bot) throw new Error('Bot instance is required');
+
         this.bot = bot;
+
+        await this.run();
 
         return this.bot;
     }
 
-    async start() {
-        if (this.storage[this.count - 1]) {
+    async run() {
+        const {
+            count,
+            storage
+        } = this.queue;
+
+        if (storage[count - 1]) {
             const {
                 action,
                 chat_id,
@@ -46,7 +58,7 @@ class Sender extends Queue {
                 message_id,
                 message_thread_id,
                 data
-            } = this.storage[this.count - 1];
+            } = storage[count - 1];
 
             if (message_thread_id) {
                 message.extra.message_thread_id = message_thread_id;
@@ -83,7 +95,7 @@ class Sender extends Queue {
             }
         }
 
-        setTimeout(() => this.start(), 100);
+        setTimeout(async () => await this.run(), 100);
     }
 
     async setChatPermissions(chat_id, permissions) {
@@ -318,10 +330,7 @@ class Sender extends Queue {
 }
 
 const sender = new Sender();
-sender.start();
-
 const countdownSender = new Sender();
-countdownSender.start();
 
 module.exports = {
     sender,

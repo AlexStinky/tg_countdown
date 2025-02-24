@@ -1,9 +1,9 @@
 require('dotenv').config();
 
+const mongoose = require('mongoose');
+
 const { Telegraf } = require('telegraf');
 const {
-    Extra,
-    Markup,
     Stage,
     session,
 } = Telegraf;
@@ -19,20 +19,20 @@ const {
     countdownSender
 } = require('./services/sender');
 
-const stage = new Stage([]);
+const BOT_TOKEN = process.env.BOT_TOKEN;
+const DB_CONN = process.env.DB_CONN;
 
-const bot = new Telegraf(process.env.BOT_TOKEN, { handlerTimeout: 100 });
+mongoose.set('strictQuery', false);
+mongoose.connect(DB_CONN, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+}).catch(console.log);
+
+const bot = new Telegraf(BOT_TOKEN, { handlerTimeout: 100 });
 
 const { telegram: tg } = bot;
 
-const stnk = process.env.STNK_ID;
-
-tg.callApi('getUpdates', { offset: -1 })
-    .then(updates => updates.length && updates[0].update_id + 1)
-    .then(offset => { if (offset) return tg.callApi('getUpdates', { offset }) })
-    .then(() => bot.launch())
-    .then(() => console.info('The bot is launched'))
-    .catch(err => console.error(err));
+const stage = new Stage([]);
 
 const limitConfig = {
     window: 1000,
@@ -50,6 +50,13 @@ const i18n = new TelegrafI18n({
         uppercase: (value) => value.toUpperCase()
     }
 });
+
+tg.callApi('getUpdates', { offset: -1 })
+    .then(updates => updates.length && updates[0].update_id + 1)
+    .then(offset => { if (offset) return tg.callApi('getUpdates', { offset }) })
+    .then(() => bot.launch())
+    .then(() => console.info('The bot is launched'))
+    .catch(err => console.error(err));
 
 bot.use(session());
 bot.use(i18n.middleware());
@@ -121,18 +128,24 @@ bot.telegram.getMe().then((botInfo) => {
     console.log(`Username: @${botUsername}`);
 });
 
-sender.create(bot);
-countdownSender.create(bot);
-
-(() => {
+(async () => {
     const fs = require('fs');
 
     if (!fs.existsSync('./config.json')) {
         fs.writeFileSync('./config.json', fs.readFileSync('./config_example.json'));
     }
 
-    timer.check();
+    await sender.create(bot);
+    await countdownSender.create(bot);
+
+    await timer.check();
 })()
 
-process.once('SIGINT', () => bot.stop('SIGINT'));
-process.once('SIGTERM', () => bot.stop('SIGTERM'));
+process.once('SIGINT', async () => {
+    await bot.stop();
+    await mongoose.disconnect();
+});
+process.once('SIGTERM', async () => {
+    await bot.stop();
+    await mongoose.disconnect();
+});

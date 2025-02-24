@@ -7,10 +7,7 @@ const check = async () => {
     const now = new Date();
 
     const data = await countdownDBService.getAll({
-        isActive: true,
-        date: {
-            $gt: now
-        }
+        isActive: true
     });
 
     for (let i = 0; i < data.length; i++) {
@@ -40,7 +37,7 @@ const check = async () => {
     }
 
     await countdownDBService.updateAll({
-        data: {
+        date: {
             $lt: now
         }
     }, { isActive: false });

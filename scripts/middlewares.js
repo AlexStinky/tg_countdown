@@ -8,7 +8,7 @@ const {
     userDBService
 } = require('../services/db');
 
-const stnk = process.env.STNK_ID;
+const ADMINS = process.env.ADMINS.split(',');
 
 const LANGUAGES = /uk/;
 
@@ -63,6 +63,8 @@ const commands = async (ctx, next) => {
     const { user } = ctx.state;
 
     if (message && message.text) {
+        const now = new Date();
+
         const { text } = message;
 
         const match = text.split(' ');
@@ -79,7 +81,7 @@ const commands = async (ctx, next) => {
                 });
             }
 
-            if (user.isAdmin || ctx.from.id == stnk) {
+            if (user.isAdmin || ADMINS.includes(user.chat_id)) {
                 if (match[0] === '/admin') {
                     const check = await userDBService.get({
                         $or: [
@@ -111,6 +113,14 @@ const commands = async (ctx, next) => {
 
                 if (match[0] === '/addChat') {
                     response_message = messages.addChat(user.lang);
+                }
+
+                if (match[0] === '/stop') {
+                    await countdownDBService.updateAll({ isActive: true }, {
+                        date: now
+                    });
+
+                    await ctx.replyWithHTML(ctx.i18n.t('timersIsStopped_message'));
                 }
 
                 if (match[0] === '/deleteAll') {
